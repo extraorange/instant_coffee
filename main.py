@@ -5,9 +5,9 @@ import os
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update, constants
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 
-authname = "mistergpro"
-password = "a1s2d3f4g5h6"
-token = "6284621532:AAFOmyQEglLwVYgqRAK4tkqqnpd5nYWW7_o"
+authname = os.environ.get("INST_AUTHNAME")
+password = os.environ.get("INST_PASSWORD")
+token = os.environ.get("BOT_TOKEN")
 
 ### INSTALOADER SCRIPT
 
