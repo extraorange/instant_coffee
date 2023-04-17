@@ -46,7 +46,6 @@ async def inst_parser(chat_id, context):
                     # Storing the latest post ID per username & image cleanup:
                     last_posts_check[username] = latest_post.shortcode
                     os.remove("media.jpg")
-                    await asyncio.sleep(600) ### RATE LIMIT FOR TESTING - PLEASE REMOVE ONCE ON PROD
             await asyncio.sleep(300)
         except instaloader.exceptions.LoginRequiredException:
             L.login(authname, password)
