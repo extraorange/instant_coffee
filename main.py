@@ -18,6 +18,8 @@ async def inst_parser(chat_id, context):
     L.login(authname, password)
     if L.context.is_logged_in:
         print(f"Logged in as @{authname}.\n")
+    else:
+        return
 
     account = instaloader.Profile.from_username(L.context, authname)
     followees = [user.username for user in account.get_followees()]
