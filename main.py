@@ -64,7 +64,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                         "Once you don't want me brewing anymore - use <b>/stop</b> command.",
                                    parse_mode=constants.ParseMode.HTML)
     inst_parser_on = True
-    await inst_parser(update.effective_chat.id, context)
+    while True:
+        await inst_parser(update.effective_chat.id, context)
 
 async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE):
     global inst_parser_on
