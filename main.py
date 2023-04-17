@@ -12,23 +12,24 @@ token = os.environ.get("BOT_TOKEN")
 ### INSTALOADER SCRIPT
 
 async def inst_parser(chat_id, context):
+    global inst_parser_on
     L = instaloader.Instaloader()
-    L.login(authname, password)
 
-    if L.context.is_logged_in: 
+    L.login(authname, password)
+    if L.context.is_logged_in:
         print(f"Logged in as @{authname}.")
 
     account = instaloader.Profile.from_username(L.context, authname)
     followees = [user.username for user in account.get_followees()]
     last_posts_check = {username: None for username in followees}
 
-    while True:
+    while inst_parser_on:
         try:
             for username in followees:
                 followee = instaloader.Profile.from_username(L.context, username)
                 latest_post = followee.get_posts().__next__()
                 if latest_post.shortcode != last_posts_check[username]:
-                    
+
                     # Processing message:
                     with open("media.jpg", "wb") as f: 
                         f.write(requests.get(latest_post.url).content)
@@ -60,8 +61,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                         "Once you don't want me brewing anymore - use <b>/stop</b> command.",
                                    parse_mode=constants.ParseMode.HTML)
     inst_parser_on = True
-    while inst_parser_on:
-        await inst_parser(update.effective_chat.id, context)
+    await inst_parser(update.effective_chat.id, context)
 
 async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE):
     global inst_parser_on
